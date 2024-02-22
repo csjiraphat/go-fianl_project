@@ -66,6 +66,11 @@ function Header() {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link py-2" to="/indexUser">
+                    Users
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <button className="nav-link btn py-2" onClick={handleLogout}>
                     Logout
                   </button>

@@ -5,6 +5,7 @@ import TeacherList from "./font_end/teacher";
 import Header from "./font_end/Header";
 import Login from "./font_end/signin/signin";
 import Signup from "./font_end/signup/signup";
+import UserList from "./font_end/user";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/indexStudent" element={<StudentList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/indexUser" element={<UserList />} />
         </Routes>
       </main>
     </Router>

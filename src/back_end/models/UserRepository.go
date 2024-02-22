@@ -20,10 +20,6 @@ func (r *UserRepository) GetUsers(c *gin.Context) {
 	var users []User
 	r.Db.Find(&users)
 
-	for i := range users {
-		users[i].Password = ""
-	}
-
 	c.JSON(200, users)
 }
 
