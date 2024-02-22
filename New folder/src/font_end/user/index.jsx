@@ -3,73 +3,73 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddTeacher from "./add";
-import EditTeacher from "./edit";
+import AddUser from "./add";
+import EditUser from "./edit";
 
-function TeacherList() {
-  const [teachers, setTeachers] = useState([]);
+function UserList() {
+  const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const fetchTeachers = async () => {
+  const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/teachers");
-      setTeachers(response.data);
+      const response = await axios.get("http://localhost:5000/users");
+      setUsers(response.data);
     } catch (error) {
-      console.error("Error fetching teachers:", error);
+      console.error("Error fetching users:", error);
     }
   };
 
   useEffect(() => {
-    fetchTeachers();
+    fetchUsers();
   }, []);
 
-  const handleDelete = async (teacherId) => {
+  const handleDelete = async (userId) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this teacher?"
+      "Are you sure you want to delete this user?"
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:5000/teachers/${teacherId}`);
-        setTeachers(teachers.filter((teacher) => teacher.ID !== teacherId));
-        toast.success("Teacher deleted successfully!");
+        await axios.delete(`http://localhost:5000/users/${userId}`);
+        setUsers(users.filter((user) => user.Email !== userId));
+        toast.success("User deleted successfully!");
       } catch (error) {
-        console.error("Error deleting teacher:", error);
-        toast.error("Failed to delete teacher!");
+        console.error("Error deleting user:", error);
+        toast.error("Failed to delete user!");
       }
     }
   };
 
-  const handleEdit = (teacher) => {
-    setSelectedTeacher(teacher);
+  const handleEdit = (user) => {
+    setSelectedUser(user);
     setIsEditModalOpen(true);
   };
 
-  const filteredTeachers = teachers.filter((teacher) => {
+  const filteredUsers = users.filter((user) => {
     return (
-      teacher.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      teacher.LastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      teacher.ID.toString().includes(searchTerm.toLowerCase())
+      user.Email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.ID.toString().includes(searchTerm.toLowerCase())
     );
   });
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">Teacher List</h1>
+      <h1 className="text-center mb-4">User List</h1>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <button
           className="btn btn-success"
           onClick={() => setIsAddModalOpen(true)}
         >
-          Add Teacher
+          Add User
         </button>
         <div className="input-group" style={{ width: "30%" }}>
           <input
             type="text"
             className="form-control"
-            placeholder="Search by name, ID, or last name"
+            placeholder="Search by ID, Name or Email"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -78,28 +78,28 @@ function TeacherList() {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Password</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredTeachers.map((teacher) => (
-            <tr key={teacher.ID}>
-              <td>{teacher.FirstName}</td>
-              <td>{teacher.LastName}</td>
-              <td>{teacher.Age}</td>
+          {filteredUsers.map((user) => (
+            <tr key={user.ID}>
+              <td>{user.Email}</td>
+              <td>{user.Name}</td>
+              <td>{user.Password}</td>
               <td>
                 <button
                   className="btn btn-primary me-2"
-                  onClick={() => handleEdit(teacher)}
+                  onClick={() => handleEdit(user)}
                 >
                   Edit
                 </button>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDelete(teacher.ID)}
+                  onClick={() => handleDelete(user.Email)}
                 >
                   Delete
                 </button>
@@ -108,20 +108,20 @@ function TeacherList() {
           ))}
         </tbody>
       </table>
-      <AddTeacher
+      <AddUser
         isOpen={isAddModalOpen}
         onClose={() => {
           setIsAddModalOpen(false);
-          fetchTeachers();
+          fetchUsers();
         }}
       />
-      {selectedTeacher && (
-        <EditTeacher
-          teacher={selectedTeacher}
+      {selectedUser && (
+        <EditUser
+          user={selectedUser}
           isOpen={isEditModalOpen}
           onClose={() => {
             setIsEditModalOpen(false);
-            fetchTeachers();
+            fetchUsers();
           }}
         />
       )}
@@ -130,4 +130,4 @@ function TeacherList() {
   );
 }
 
-export default TeacherList;
+export default UserList;

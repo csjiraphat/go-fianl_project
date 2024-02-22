@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function AddStudent({ isOpen, onClose }) {
-  const [newStudent, setNewStudent] = useState({
-    StudentId: "",
-    FirstName: "",
-    LastName: "",
-    Age: "",
+function AddUser({ isOpen, onClose }) {
+  const [newUser, setNewUser] = useState({
+    Email: "",
+    Name: "",
+    Password: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // If the field is Age, parse it as an integer
-    const parsedValue = name === "Age" ? parseInt(value) : value;
-    setNewStudent((prevStudent) => ({
-      ...prevStudent,
-      [name]: parsedValue,
+    setNewUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
     }));
   };
 
-  const handleAddStudent = async () => {
+  const handleAddUser = async () => {
     try {
-      await axios.post("http://localhost:5000/students", newStudent);
-      onClose(); // Close the dialog after successfully adding data
+      await axios.post("http://localhost:5000/users", newUser);
+      onClose(); // ปิด dialog เมื่อเพิ่มข้อมูลเสร็จสมบูรณ์
     } catch (error) {
       console.error("Error adding student:", error);
     }
@@ -37,7 +34,7 @@ function AddStudent({ isOpen, onClose }) {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Add Student</h5>
+            <h5 className="modal-title">Add User</h5>
             <button
               type="button"
               className="btn-close"
@@ -47,54 +44,41 @@ function AddStudent({ isOpen, onClose }) {
           <div className="modal-body">
             <form>
               <div className="mb-3">
-                <label htmlFor="studentId" className="form-label">
-                  Student ID
+                <label htmlFor="email" className="form-label">
+                  Email
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="studentId"
-                  name="StudentId"
-                  value={newStudent.StudentId}
+                  id="email"
+                  name="Email"
+                  value={newUser.Email}
                   onChange={handleChange}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="firstName" className="form-label">
-                  First Name
+                <label htmlFor="Name" className="form-label">
+                  Name
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="firstName"
-                  name="FirstName"
-                  value={newStudent.FirstName}
+                  id="Name"
+                  name="Name"
+                  value={newUser.Name}
                   onChange={handleChange}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="lastName" className="form-label">
-                  Last Name
+                <label htmlFor="Password" className="form-label">
+                  Password
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="lastName"
-                  name="LastName"
-                  value={newStudent.LastName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="Age" className="form-label">
-                  Age
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="Age"
-                  name="Age"
-                  value={newStudent.Age}
+                  id="Password"
+                  name="Password"
+                  value={newUser.Password}
                   onChange={handleChange}
                 />
               </div>
@@ -104,7 +88,7 @@ function AddStudent({ isOpen, onClose }) {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={handleAddStudent}
+              onClick={handleAddUser}
             >
               Add
             </button>
@@ -122,4 +106,4 @@ function AddStudent({ isOpen, onClose }) {
   );
 }
 
-export default AddStudent;
+export default AddUser;

@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function EditSubject({ isOpen, onClose, subject }) {
-  const [updatedSubjectData, setUpdatedSubjectData] = useState({
-    Subject_id: subject.Subject_id,
-    Subject_name: subject.Subject_name,
-    Subject_credit: subject.Subject_credit,
+function EditUser({ isOpen, onClose, user }) {
+  const [updatedUserData, setUpdatedUserData] = useState({
+    email: user.Email,
+    name: user.Name,
+    password: user.Password,
   });
 
   useEffect(() => {
-    setUpdatedSubjectData({
-      Subject_id: subject.Subject_id,
-      Subject_name: subject.Subject_name,
-      Subject_credit: subject.Subject_credit,
+    setUpdatedUserData({
+      email: user.Email,
+      name: user.Name,
+      password: user.Password,
     });
-  }, [subject]);
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const parsedValue = name === "Subject_credit" ? parseFloat(value) : value; // Parse Subject_credit as float
-    setUpdatedSubjectData((prevData) => ({
+    setUpdatedUserData((prevData) => ({
       ...prevData,
-      [name]: parsedValue,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Submitting updated data:", updatedSubjectData);
+      console.log("Submitting updated data:", updatedUserData);
       const response = await axios.put(
-        `http://localhost:5000/subjects/${subject.ID}`,
-        updatedSubjectData
+        `http://localhost:5000/users/${user.Email}`,
+        updatedUserData
       );
       console.log("Server response:", response.data);
       onClose();
     } catch (error) {
-      console.error("Error updating subject:", error);
+      console.error("Error updating user:", error);
     }
   };
 
@@ -50,7 +49,7 @@ function EditSubject({ isOpen, onClose, subject }) {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Edit subject</h5>
+            <h5 className="modal-title">Edit User</h5>
             <button
               type="button"
               className="btn-close"
@@ -61,44 +60,43 @@ function EditSubject({ isOpen, onClose, subject }) {
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="Subject_id" className="form-label">
-                  Subject ID
+                <label htmlFor="email" className="form-label">
+                  Email
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="Subject_id"
-                  name="Subject_id"
-                  value={updatedSubjectData.Subject_id}
+                  id="email"
+                  name="email"
+                  value={updatedUserData.email}
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="Subject_name" className="form-label">
-                  Subject Name
+                <label htmlFor="name" className="form-label">
+                  Name
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="Subject_name"
-                  name="Subject_name"
-                  value={updatedSubjectData.Subject_name}
+                  id="name"
+                  name="name"
+                  value={updatedUserData.name}
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="Subject_credit" className="form-label">
-                  Subject Credit
+                <label htmlFor="name" className="form-label">
+                  Password
                 </label>
                 <input
-                  type="number"
-                  step="0.01"
+                  type="text"
                   className="form-control"
-                  id="Subject_credit"
-                  name="Subject_credit"
-                  value={updatedSubjectData.Subject_credit}
+                  id="password"
+                  name="password"
+                  value={updatedUserData.password}
                   onChange={handleChange}
                   required
                 />
@@ -115,4 +113,4 @@ function EditSubject({ isOpen, onClose, subject }) {
   );
 }
 
-export default EditSubject;
+export default EditUser;
