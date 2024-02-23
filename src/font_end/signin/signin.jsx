@@ -19,10 +19,10 @@ function Login() {
     })
       .then((response) => {
         if (response.ok) {
-          // เมื่อ login สำเร็จ
-          // บันทึกข้อมูลผู้ใช้ลงใน localStorage
+          // Successful login
+          // Save user data to localStorage
           localStorage.setItem("user", JSON.stringify({ email: Email }));
-          // นำผู้ใช้ไปยังหน้าหลักหลังจาก login สำเร็จ
+          // Redirect user to homepage after successful login
           window.location.href = "/";
         } else {
           throw new Error("Login failed");
@@ -35,7 +35,9 @@ function Login() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 text-white">
+      {" "}
+      {/* Added text-white class */}
       <h2 className="mb-4">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">

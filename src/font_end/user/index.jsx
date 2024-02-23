@@ -56,11 +56,14 @@ function UserList() {
   });
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">User List</h1>
+    <div className="container mt-4 text-center">
+      {" "}
+      {/* Added text-center class */}
+      <h1 className="mb-4 text-white">User List</h1>{" "}
+      {/* Removed text-center class */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <button
-          className="btn btn-success"
+          className="btn btn-success text-white"
           onClick={() => setIsAddModalOpen(true)}
         >
           Add User
@@ -80,7 +83,7 @@ function UserList() {
           <tr>
             <th scope="col">Email</th>
             <th scope="col">Name</th>
-            <th scope="col">Password</th>
+
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -89,10 +92,10 @@ function UserList() {
             <tr key={user.ID}>
               <td>{user.Email}</td>
               <td>{user.Name}</td>
-              <td>{user.Password}</td>
+
               <td>
                 <button
-                  className="btn btn-primary me-2"
+                  className="btn btn-primary me-2 text-white"
                   onClick={() => handleEdit(user)}
                 >
                   Edit

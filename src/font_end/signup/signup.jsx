@@ -48,7 +48,9 @@ function Signup() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 text-white">
+      {" "}
+      {/* Added text-white class */}
       <ToastContainer />
       <h2 className="mb-4">Sign Up</h2>
       {!signupSuccess ? (

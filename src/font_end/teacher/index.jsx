@@ -56,11 +56,14 @@ function TeacherList() {
   });
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">Teacher List</h1>
+    <div className="container mt-4 text-center">
+      {" "}
+      {/* Added text-white class and text-center class */}
+      <h1 className="mb-4 text-white">Teacher List</h1>{" "}
+      {/* Removed text-center class */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <button
-          className="btn btn-success"
+          className="btn btn-success text-white"
           onClick={() => setIsAddModalOpen(true)}
         >
           Add Teacher
@@ -92,7 +95,7 @@ function TeacherList() {
               <td>{teacher.Age}</td>
               <td>
                 <button
-                  className="btn btn-primary me-2"
+                  className="btn btn-primary me-2 text-white"
                   onClick={() => handleEdit(teacher)}
                 >
                   Edit

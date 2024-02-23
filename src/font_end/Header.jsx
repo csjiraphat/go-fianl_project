@@ -1,3 +1,4 @@
+import badgeColors from "@material-tailwind/react/theme/components/badge/badgeColors";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -14,7 +15,10 @@ function Header() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav
+      className="navbar navbar-expand-lg navbar-light"
+      style={{ backgroundColor: "#e3f2fd" }}
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           Home
